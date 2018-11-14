@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="c0l-jB-NYp" customClass="GameView" customModule="TapGame" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bw2-SU-pis" customClass="RippleEffectView" customModule="TapGame" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1G-eW-z9U">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to start playing!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Uv-Ac-Wdo">
+                    <rect key="frame" x="20" y="183" width="335" height="35"/>
+                    <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30''" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9hf-AD-vOf">
+                    <rect key="frame" x="272.5" y="40" width="82.5" height="58"/>
+                    <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="50"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="zMT-wV-zUh">
+                    <rect key="frame" x="20" y="286" width="335" height="115.5"/>
+                    <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="100"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High score!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VBP-AS-g6u">
+                    <rect key="frame" x="105" y="401.5" width="165.5" height="35"/>
+                    <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="30"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="zMT-wV-zUh" firstAttribute="leading" secondItem="00f-98-Qae" secondAttribute="leading" constant="20" id="3hh-kz-32J"/>
+                <constraint firstAttribute="bottom" secondItem="bw2-SU-pis" secondAttribute="bottom" id="3m0-ON-BJQ"/>
+                <constraint firstItem="0Uv-Ac-Wdo" firstAttribute="centerY" secondItem="00f-98-Qae" secondAttribute="bottom" multiplier="0.3" id="C0b-4t-EgZ"/>
+                <constraint firstItem="9hf-AD-vOf" firstAttribute="top" secondItem="00f-98-Qae" secondAttribute="top" constant="20" id="E9o-4C-WYT"/>
+                <constraint firstItem="D1G-eW-z9U" firstAttribute="leading" secondItem="c0l-jB-NYp" secondAttribute="leading" id="FSx-0M-3Pb"/>
+                <constraint firstItem="bw2-SU-pis" firstAttribute="top" secondItem="c0l-jB-NYp" secondAttribute="top" id="Kbr-9w-bnA"/>
+                <constraint firstItem="VBP-AS-g6u" firstAttribute="top" secondItem="zMT-wV-zUh" secondAttribute="bottom" id="KpN-8V-WDp"/>
+                <constraint firstItem="zMT-wV-zUh" firstAttribute="centerY" secondItem="00f-98-Qae" secondAttribute="centerY" id="Ol6-AF-2tN"/>
+                <constraint firstItem="00f-98-Qae" firstAttribute="trailing" secondItem="9hf-AD-vOf" secondAttribute="trailing" constant="20" id="Th7-V9-lzf"/>
+                <constraint firstAttribute="bottom" secondItem="D1G-eW-z9U" secondAttribute="bottom" id="VOf-Ss-6hq"/>
+                <constraint firstItem="00f-98-Qae" firstAttribute="trailing" secondItem="zMT-wV-zUh" secondAttribute="trailing" constant="20" id="ciO-qr-L0R"/>
+                <constraint firstAttribute="trailing" secondItem="bw2-SU-pis" secondAttribute="trailing" id="hsC-mb-rlT"/>
+                <constraint firstItem="0Uv-Ac-Wdo" firstAttribute="leading" secondItem="00f-98-Qae" secondAttribute="leading" constant="20" id="hyn-MJ-pFo"/>
+                <constraint firstItem="D1G-eW-z9U" firstAttribute="top" secondItem="c0l-jB-NYp" secondAttribute="top" id="kGr-vD-vcj"/>
+                <constraint firstAttribute="trailing" secondItem="D1G-eW-z9U" secondAttribute="trailing" id="wKr-wv-Ybt"/>
+                <constraint firstItem="bw2-SU-pis" firstAttribute="leading" secondItem="c0l-jB-NYp" secondAttribute="leading" id="wys-e0-10S"/>
+                <constraint firstItem="00f-98-Qae" firstAttribute="trailing" secondItem="0Uv-Ac-Wdo" secondAttribute="trailing" constant="20" id="xRz-Uz-brl"/>
+                <constraint firstItem="VBP-AS-g6u" firstAttribute="centerX" secondItem="zMT-wV-zUh" secondAttribute="centerX" id="xVD-Fy-WIV"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="00f-98-Qae"/>
+            <connections>
+                <outlet property="backgroundView" destination="bw2-SU-pis" id="u0n-sZ-819"/>
+                <outlet property="highScoreBeatenLabel" destination="VBP-AS-g6u" id="90V-MI-WDq"/>
+                <outlet property="scoreLabel" destination="zMT-wV-zUh" id="8cX-bH-BRK"/>
+                <outlet property="secondsLeftLabel" destination="9hf-AD-vOf" id="QhI-bA-3xr"/>
+                <outlet property="startTappingMessageView" destination="0Uv-Ac-Wdo" id="7w9-5W-Gga"/>
+                <outlet property="tappableView" destination="D1G-eW-z9U" id="pWq-8i-TMR"/>
+            </connections>
+            <point key="canvasLocation" x="-209.5" y="-15.5"/>
+        </view>
+    </objects>
+</document>
