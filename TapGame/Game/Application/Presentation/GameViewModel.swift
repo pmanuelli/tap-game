@@ -1,5 +1,6 @@
 
 import RxSwift
+import RxCocoa
 
 class GameViewModel {
 
@@ -12,6 +13,9 @@ class GameViewModel {
     
     private let scoreSubject = BehaviorSubject<Int>(value: 0)
     var score: Observable<Int> { return scoreSubject.asObservable() }
+    
+    private let scoreHiddenSubject = BehaviorSubject<Bool>(value: true)
+    var scoreHidden: Driver<Bool> { return scoreHiddenSubject.asDriver(onErrorJustReturn: true) }
     
     private let highScoreBeatenSubject = PublishSubject<Int>()
     var highScoreBeaten: Completable { return highScoreBeatenSubject.ignoreElements() }
@@ -31,6 +35,7 @@ class GameViewModel {
     
     func firstUserTapReceived() {
         observeSecondsLeftTimer()
+        scoreHiddenSubject.onNext(false)
     }
     
     func userTapReceived() {

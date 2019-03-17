@@ -47,8 +47,11 @@ class GameViewController: UIViewController {
         hideHighScoreBeatenMessage()
         
         observeUserTaps()
+        
         bindSecondsLeft()
         bindScore()
+        bindScoreVisible()
+        
         observeHighScoreBeaten()
         observeTimeEnded()
     }
@@ -90,6 +93,14 @@ class GameViewController: UIViewController {
         viewModel.score
             .map({ "\($0)"})
             .bind(to: mainView.scoreLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindScoreVisible() {
+        
+        viewModel.scoreHidden
+            .asObservable()
+            .bind(to: mainView.scoreLabel.rx.isHidden)
             .disposed(by: disposeBag)
     }
     

@@ -1,6 +1,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 struct UserTap {
     let location: CGPoint
@@ -18,8 +19,6 @@ class GameView: UIView {
     @IBOutlet var backgroundView: RippleEffectView!
     
     var userTaps: Observable<UserTap>!
-    
-    private var userTapsSubject: PublishSubject<UserTap>!
     
     func hideScore() {
         scoreLabel.isHidden = true
@@ -41,22 +40,16 @@ class GameView: UIView {
         super.awakeFromNib()
         
         setupTappableView()
-        setupTapSubject()
     }
     
     private func setupTappableView() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappableViewTapped))
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: nil, action: nil)
+        
+        userTaps = tapGestureRecognizer.rx
+            .event
+            .map({ UserTap(location: $0.location(in: self.backgroundView)) })
+        
         tappableView.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    private func setupTapSubject() {
-        userTapsSubject = PublishSubject<UserTap>()
-        userTaps = userTapsSubject.asObservable()
-    }
-    
-    @objc
-    private func tappableViewTapped(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: backgroundView)
-        userTapsSubject.onNext(UserTap(location: location))
     }
 }
