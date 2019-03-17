@@ -305,7 +305,6 @@
 				6EA760652102D80300440552 /* Frameworks */,
 				6EA760662102D80300440552 /* Resources */,
 				98DAB7BF8AB953693D779B29 /* [CP] Embed Pods Frameworks */,
-				1039C4C6FC87128C22D1AD4F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -325,7 +324,6 @@
 				6EA760792102D80400440552 /* Frameworks */,
 				6EA7607A2102D80400440552 /* Resources */,
 				12A4588F5BFE4D4D6153FC8C /* [CP] Embed Pods Frameworks */,
-				5740A2ECADE6209A649891B0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -397,28 +395,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1039C4C6FC87128C22D1AD4F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TapGame/Pods-TapGame-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		12A4588F5BFE4D4D6153FC8C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TapGameTests/Pods-TapGameTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-TapGameTests/Pods-TapGameTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxTest/RxTest.framework",
@@ -431,7 +414,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TapGameTests/Pods-TapGameTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TapGameTests/Pods-TapGameTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2BAD842765C21193E654C158 /* [CP] Check Pods Manifest.lock */ = {
@@ -452,28 +435,13 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5740A2ECADE6209A649891B0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TapGameTests/Pods-TapGameTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		98DAB7BF8AB953693D779B29 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TapGame/Pods-TapGame-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-TapGame/Pods-TapGame-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
@@ -484,7 +452,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TapGame/Pods-TapGame-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TapGame/Pods-TapGame-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CBBE1A895D0AE5420B4A0DAA /* [CP] Check Pods Manifest.lock */ = {

@@ -1,6 +1,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 extension Observable where Element == Int {
     
@@ -46,9 +47,9 @@ class GameViewController: UIViewController {
         hideHighScoreBeatenMessage()
         
         observeUserTaps()
-        observeSecondsLeft()
-        observeScore()
-        observePreviousHighScoreBeaten()
+        bindSecondsLeft()
+        bindScore()
+        observeHighScoreBeaten()
         observeTimeEnded()
     }
     
@@ -76,21 +77,23 @@ class GameViewController: UIViewController {
         hideStartTappingMessageIfNeeded()
     }
     
-    private func observeSecondsLeft() {
+    private func bindSecondsLeft() {
     
         viewModel.secondsLeft
-            .subscribe(onNext: { self.onSecondsLeftNext($0) })
+            .map({ "\($0)\"" })
+            .bind(to: mainView.secondsLeftLabel.rx.text)
             .disposed(by: disposeBag)
     }
 
-    private func observeScore() {
+    private func bindScore() {
         
         viewModel.score
-            .subscribe(onNext: { self.onScoreNext($0) })
+            .map({ "\($0)"})
+            .bind(to: mainView.scoreLabel.rx.text)
             .disposed(by: disposeBag)
     }
     
-    private func observePreviousHighScoreBeaten() {
+    private func observeHighScoreBeaten() {
         
         viewModel.highScoreBeaten
             .subscribe(onCompleted: { self.onHighScoreBeaten() })
@@ -105,14 +108,6 @@ class GameViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func onSecondsLeftNext(_ secondsLeft: Int) {
-        mainView.setSecondsLeft(secondsLeft)
-    }
-    
-    private func onScoreNext(_ score: Int) {
-        updateScoreLabel(score)
-    }
-
     private func onTimeEnded() {
         
         timeEndedAnimator.animate()
@@ -125,7 +120,6 @@ class GameViewController: UIViewController {
     }
     
     private func onHighScoreBeaten() {
-        
         highScoreBeatenAnimator.animate()
     }
     
@@ -139,10 +133,6 @@ class GameViewController: UIViewController {
     
     private func hideHighScoreBeatenMessage() {
         mainView.hideHighScoreBeatenMessage()
-    }
-    
-    private func updateScoreLabel(_ score: Int) {
-        mainView.showScore(score)
     }
     
     private func updateBackgroundColor(tap: UserTap) {

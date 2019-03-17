@@ -1,7 +1,6 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
 
 struct UserTap {
     let location: CGPoint
@@ -22,17 +21,8 @@ class GameView: UIView {
     
     private var userTapsSubject: PublishSubject<UserTap>!
     
-    func setSecondsLeft(_ secondsLeft: Int) {
-        secondsLeftLabel.text = "\(secondsLeft)\""
-    }
-    
     func hideScore() {
         scoreLabel.isHidden = true
-    }
-    
-    func showScore(_ score: Int) {
-        scoreLabel.isHidden = false
-        scoreLabel.text = "\(score)"
     }
     
     func hideStartTappingMessage() {
