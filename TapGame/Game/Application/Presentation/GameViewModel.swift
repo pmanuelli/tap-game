@@ -29,11 +29,28 @@ class GameViewModel {
     private let highScoreRepository: HighScoreRepository
     private let disposeBag = DisposeBag()
     
+    private let userTapsSubject = PublishSubject<Void>()
+    var userTapsObserver: AnyObserver<Void> { return userTapsSubject.asObserver() }
+    
     init(highScoreRepository: HighScoreRepository) {
         
         self.highScoreRepository = highScoreRepository
         
         observeScore()
+        observeUserTaps()
+    }
+    
+    func observeUserTaps() {
+        
+        userTapsSubject
+            .take(1)
+            .subscribe(onNext: { [weak self] in self?.firstUserTapReceived() })
+            .disposed(by: disposeBag)
+        
+        userTapsSubject
+            .takeUntil(timeEnded)
+            .subscribe(onNext: { [weak self] in self?.userTapReceived() })
+            .disposed(by: disposeBag)
     }
     
     func firstUserTapReceived() {

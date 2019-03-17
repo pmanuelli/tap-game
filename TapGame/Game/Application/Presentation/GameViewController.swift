@@ -42,42 +42,31 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        hideScore()
-        hideHighScoreBeatenMessage()
         
-        observeUserTaps()
+        mainView.highScoreBeatenLabel.isHidden = true
+        
+        bindUserTaps()
         
         bindSecondsLeft()
         bindScore()
         bindScoreHidden()
         bindStartTappingMessageHidden()
-        
+    
         observeHighScoreBeaten()
         observeTimeEnded()
     }
     
-    private func observeUserTaps() {
+    private func bindUserTaps() {
         
         mainView.userTaps
-            .take(1)
-            .subscribe(onNext: { _ in self.firstUserTapReceived() })
+            .map({ _ in Void() })
+            .bind(to: viewModel.userTapsObserver)
             .disposed(by: disposeBag)
         
         mainView.userTaps
             .takeUntil(viewModel.timeEnded)
-            .subscribe(onNext: { tap in self.userTapReceived(tap) })
+            .subscribe(onNext: { [weak self] tap in self?.updateBackgroundColor(tap: tap) })
             .disposed(by: disposeBag)
-    }
-    
-    private func firstUserTapReceived() {
-        viewModel.firstUserTapReceived()
-    }
-    
-    private func userTapReceived(_ tap: UserTap) {
-        viewModel.userTapReceived()
-        
-        updateBackgroundColor(tap: tap)
     }
     
     private func bindSecondsLeft() {
@@ -139,15 +128,7 @@ class GameViewController: UIViewController {
     private func onHighScoreBeaten() {
         highScoreBeatenAnimator.animate()
     }
-    
-    private func hideScore() {
-        mainView.hideScore()
-    }
-    
-    private func hideHighScoreBeatenMessage() {
-        mainView.hideHighScoreBeatenMessage()
-    }
-    
+
     private func updateBackgroundColor(tap: UserTap) {
         colorGenerator.generate()
         mainView.updateBackground(color: colorGenerator.color,

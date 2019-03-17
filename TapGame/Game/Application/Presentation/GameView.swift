@@ -20,18 +20,10 @@ class GameView: UIView {
     
     var userTaps: Observable<UserTap>!
     
-    func hideScore() {
-        scoreLabel.isHidden = true
-    }
-    
     func updateBackground(color: UIColor, tapPoint: CGPoint) {
         backgroundView.touchIn(point: tapPoint, newColor: color)
     }
-    
-    func hideHighScoreBeatenMessage() {
-        highScoreBeatenLabel.isHidden = true
-    }
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
         
