@@ -24,10 +24,6 @@ class GameView: UIView {
         scoreLabel.isHidden = true
     }
     
-    func hideStartTappingMessage() {
-        startTappingMessageView.isHidden = true
-    }
-    
     func updateBackground(color: UIColor, tapPoint: CGPoint) {
         backgroundView.touchIn(point: tapPoint, newColor: color)
     }

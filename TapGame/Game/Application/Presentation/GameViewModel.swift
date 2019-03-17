@@ -17,6 +17,9 @@ class GameViewModel {
     private let scoreHiddenSubject = BehaviorSubject<Bool>(value: true)
     var scoreHidden: Driver<Bool> { return scoreHiddenSubject.asDriver(onErrorJustReturn: true) }
     
+    private let startTappingMessageHiddenSubject = BehaviorSubject<Bool>(value: false)
+    var startTappingMessageHidden: Driver<Bool> { return startTappingMessageHiddenSubject.asDriver(onErrorJustReturn: false) }
+    
     private let highScoreBeatenSubject = PublishSubject<Int>()
     var highScoreBeaten: Completable { return highScoreBeatenSubject.ignoreElements() }
     
@@ -35,7 +38,9 @@ class GameViewModel {
     
     func firstUserTapReceived() {
         observeSecondsLeftTimer()
+        
         scoreHiddenSubject.onNext(false)
+        startTappingMessageHiddenSubject.onNext(true)
     }
     
     func userTapReceived() {

@@ -50,7 +50,8 @@ class GameViewController: UIViewController {
         
         bindSecondsLeft()
         bindScore()
-        bindScoreVisible()
+        bindScoreHidden()
+        bindStartTappingMessageHidden()
         
         observeHighScoreBeaten()
         observeTimeEnded()
@@ -77,7 +78,6 @@ class GameViewController: UIViewController {
         viewModel.userTapReceived()
         
         updateBackgroundColor(tap: tap)
-        hideStartTappingMessageIfNeeded()
     }
     
     private func bindSecondsLeft() {
@@ -96,11 +96,17 @@ class GameViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    private func bindScoreVisible() {
+    private func bindScoreHidden() {
         
         viewModel.scoreHidden
-            .asObservable()
-            .bind(to: mainView.scoreLabel.rx.isHidden)
+            .drive(mainView.scoreLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindStartTappingMessageHidden() {
+        
+        viewModel.startTappingMessageHidden
+            .drive(mainView.startTappingMessageView.rx.isHidden)
             .disposed(by: disposeBag)
     }
     
@@ -134,10 +140,6 @@ class GameViewController: UIViewController {
         highScoreBeatenAnimator.animate()
     }
     
-    private func hideStartTappingMessageIfNeeded() {
-        mainView.hideStartTappingMessage()
-    }
-
     private func hideScore() {
         mainView.hideScore()
     }
