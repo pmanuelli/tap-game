@@ -4,7 +4,7 @@ import RxCocoa
 
 class GameViewModel {
 
-    private let secondsLeftTimer = Observable<Int>.countdownTimer(from: 15, to: 0)
+    private let secondsLeftTimer: Observable<Int>
     private let secondsLeftSubject = PublishSubject<Int>()
     var secondsLeft: Observable<Int> { return secondsLeftSubject.asObservable() }
     
@@ -26,21 +26,28 @@ class GameViewModel {
     private let completedSubject = PublishSubject<Int>()
     var completed: Single<Int> { return completedSubject.asSingle() }
     
-    private let highScoreRepository: HighScoreRepository
-    private let disposeBag = DisposeBag()
-    
     private let userTapsSubject = PublishSubject<Void>()
     var userTapsObserver: AnyObserver<Void> { return userTapsSubject.asObserver() }
+    
+    private let game: Game
+    private let previousHighScore: Int?
+    private let highScoreRepository: HighScoreRepository
+    
+    private let disposeBag = DisposeBag()
     
     init(highScoreRepository: HighScoreRepository) {
         
         self.highScoreRepository = highScoreRepository
+        self.previousHighScore = highScoreRepository.find()
         
-        observeScore()
+        let secondsLeft = 15
+        self.game = Game(secondsLeft: secondsLeft, initialHighScore: previousHighScore ?? 0)
+        self.secondsLeftTimer = Observable<Int>.countdownTimer(from: secondsLeft, to: 0)
+
         observeUserTaps()
     }
     
-    func observeUserTaps() {
+    private func observeUserTaps() {
         
         userTapsSubject
             .take(1)
@@ -53,40 +60,44 @@ class GameViewModel {
             .disposed(by: disposeBag)
     }
     
-    func firstUserTapReceived() {
-        observeSecondsLeftTimer()
+    private func firstUserTapReceived() {
+        startCountDownTimer()
         
+        showScore()
+        hideStartTappingMessage()
+    }
+    
+    private func showScore() {
         scoreHiddenSubject.onNext(false)
+    }
+    
+    private func hideStartTappingMessage() {
         startTappingMessageHiddenSubject.onNext(true)
     }
     
-    func userTapReceived() {
-        scoreSubject.onNext(getCurrentScore() + 1)
+    private func userTapReceived() {
+        game.tap()
+        
+        changeScore(game.score)
+        showHighScoreBeatenIfNeeded(game.scoreIsHighScore)
+    }
+    
+    private func changeScore(_ score: Int) {
+        scoreSubject.onNext(score)
+    }
+    
+    private func showHighScoreBeatenIfNeeded(_ highScoreBeaten: Bool) {
+        if previousHighScore != nil && highScoreBeaten  {
+            highScoreBeatenSubject.onCompleted()
+        }
     }
     
     func timeEndedAnimationsCompleted() {
-        completedSubject.onNext(getCurrentScore())
+        completedSubject.onNext(game.score)
         completedSubject.onCompleted()
     }
     
-    private func observeScore() {
-        
-        guard let highScore = highScoreRepository.getHighScore() else {
-            return
-        }
-        
-        score
-            .filter({ highScore < $0 })
-            .take(1)
-            .subscribe(highScoreBeatenSubject)
-            .disposed(by: disposeBag)
-    }
-    
-    private func getCurrentScore() -> Int {
-        return (try? scoreSubject.value()) ?? 0
-    }
-    
-    private func observeSecondsLeftTimer() {
+    private func startCountDownTimer() {
         
         secondsLeftTimer
             .subscribe(onNext: { self.onSecondsLeftNext($0) },
@@ -95,19 +106,22 @@ class GameViewModel {
     }
     
     private func onSecondsLeftNext(_ secondsLeft: Int) {
+        game.secondElapsed()
         secondsLeftSubject.onNext(secondsLeft)
     }
     
     private func onSecondsLeftCompleted() {
         
-        let highScore = highScoreRepository.getHighScore() ?? 0
-        let score = getCurrentScore()
-        
-        if highScore < score {
-            highScoreRepository.saveHighScore(score)
-        }
-                
+        saveHighScore()
+
         timeEndSubject.onNext(Void())
         timeEndSubject.onCompleted()
+    }
+    
+    private func saveHighScore() {
+        
+        if game.scoreIsHighScore {
+            highScoreRepository.put(game.score)
+        }
     }
 }

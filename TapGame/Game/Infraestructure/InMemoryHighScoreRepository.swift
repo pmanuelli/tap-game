@@ -1,21 +1,15 @@
 
 import Foundation
 
-protocol HighScoreRepository {
-    
-    func getHighScore() -> Int?
-    func saveHighScore(_ highScore: Int)
-}
-
 class InMemoryHighScoreRepository: HighScoreRepository {
     
     var highScore: Int?
     
-    func getHighScore() -> Int? {
+    func find() -> Int? {
         return highScore
     }
     
-    func saveHighScore(_ highScore: Int) {
+    func put(_ highScore: Int) {
         self.highScore = highScore
     }
 }
